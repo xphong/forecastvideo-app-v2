@@ -87,8 +87,8 @@ var app = (function() {
   f._currentTemperature = null;
   f._celsius = null;
 
-  // clock variable
-  f.clock = null;
+  // template for Mustache
+  var template = $('#template').html();
 
   // initializes our Forecast object by getting the forecast
   f.__initialize = function() {
@@ -100,6 +100,7 @@ var app = (function() {
         f.getForecast('https://api.forecast.io/forecast/' + f._apiKey + '/43.6486,-79.3853');
       }
     });
+    setInterval(f.updateDisplay, 30000);
   };
 
   f.getLocation = function(callback) {
@@ -323,16 +324,14 @@ var app = (function() {
       'minute': f.getMinute(),
       'icon': f.displayBG(f._currentTemperature.icon),
       'temperature': f.getCelsius(f._currentTemperature.temperature),
-      'aTemperature': f.getCelsius(f._currentTemperature.apparentTemperature),
+      'aTemperature': 'Feels like ' + f.getCelsius(f._currentTemperature.apparentTemperature),
       'summary': f._currentTemperature.summary,
-      'windSpeed': f.getWindSpeed(f._currentTemperature.windSpeed),
-      'windDir': f.getWindDir(f._currentTemperature.windBearing),
-      'pop': f.getPOP(f._currentTemperature.precipProbability),
-      'humidity': f.getHumidity(f._currentTemperature.humidity)
+      'windSpeed': f.getWindSpeed(f._currentTemperature.windSpeed) + ' km/h',
+      'windDir': 'Wind ' + f.getWindDir(f._currentTemperature.windBearing),
+      'pop': 'P.O.P. ' + f.getPOP(f._currentTemperature.precipProbability),
+      'humidity': 'Humidity ' + f.getHumidity(f._currentTemperature.humidity)
     };
 
-    // render for Mustache
-    var template = $('#template').html();
     $('.weather-container').html(Mustache.render(template, data));
   };
 
