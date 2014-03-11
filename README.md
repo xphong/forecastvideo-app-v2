@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # [ForecastVideo-app](http://forecastvideo.phonghuynh.ca/)
 A responsive weather app that uses the [Forecast.io API v2](https://developer.forecast.io
 ) to query for current weather conditions while displaying a looping weather video in the background using [BigVideo.js](http://dfcb.github.io/BigVideo.js/
@@ -109,3 +110,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+=======
+forecastvideo-app-v2
+====================
+>>>>>>> bb54ed3e49415ce3be7312ee58bbf906ce3fec1b
