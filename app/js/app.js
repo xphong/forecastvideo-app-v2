@@ -12,22 +12,57 @@ var app = (function() {
   };
 })();
 
+(function($, sr){
+  // debouncing function from John Hann
+  // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
+  var debounce = function (func, threshold, execAsap) {
+      var timeout;
+
+      return function debounced () {
+          var obj = this, args = arguments;
+          function delayed () {
+              if (!execAsap)
+                  func.apply(obj, args);
+              timeout = null;
+          };
+
+          if (timeout)
+              clearTimeout(timeout);
+          else if (execAsap)
+              func.apply(obj, args);
+
+          timeout = setTimeout(delayed, threshold || 100);
+      };
+  }
+  // smartresize
+  jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
+
+})(jQuery, 'smartresize');
+
 (function() {
+  // window functions
+  var $window = $(window);
+
   // Preloader
-  $(window).load(function() {
+  $window.load(function() {
     $('.loader').fadeOut('slow');
   });
 
+  var $container = $('.container');
+  var $weatherContainer = $('.weather-container');
+
   // Perfectly center on resize
-  $(window).resize(function(){
-    $('.container').css({
-      height: $(window).height(),
-      width: $(window).width()
+  $window.smartresize(function(){
+    var windowWidth = $window.width();
+    var windowHeight = $window.height();
+    $container.css({
+      height: windowHeight,
+      width: windowWidth
     });
-    $('.weather-container').css({
+    $weatherContainer.css({
       position: 'absolute',
-      left: ($(window).width() - $('.weather-container').outerWidth())/2,
-      top: ($(window).height() - $('.weather-container').outerHeight())/2
+      left: (windowWidth - $weatherContainer.outerWidth())/2,
+      top: (windowHeight - $weatherContainer.outerHeight())/2
     });
   });
 
@@ -36,6 +71,7 @@ var app = (function() {
 })();
 
 (function(window, $) {
+  // main app
   var Forecast = function() {
     //throws error if you try to do new Forecast()
     throw ('this is not to be instantiated');
