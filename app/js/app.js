@@ -10,16 +10,6 @@ var app = (function() {
       docElem.setAttribute('data-useragent', navigator.userAgent);
     }
   };
-
-})();
-
-(function() {
-  //foundation init
-  $(document).foundation();
-
-  app.publicFunction();
-  app.userAgentInit();
-
 })();
 
 (function() {
