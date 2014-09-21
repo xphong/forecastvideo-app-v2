@@ -1,5 +1,5 @@
 var app = (function() {
-  var privateVariable = 'app fired!',
+  var privateVariable = 'app fired boooom!',
     docElem = document.documentElement;
 
   return {
@@ -70,7 +70,7 @@ var app = (function() {
 
 })();
 
-(function(window, $) {
+(function(window, $, undefined) {
   // main app
   var Forecast = function() {
     //throws error if you try to do new Forecast()
@@ -126,7 +126,6 @@ var app = (function() {
         f.getForecast('https://api.forecast.io/forecast/' + f._apiKey + '/43.6486,-79.3853');
       }
     });
-    setInterval(f.updateDisplay, 30000);
   };
 
   f.getLocation = function(callback) {
@@ -363,6 +362,7 @@ var app = (function() {
 
   // makes ajax call to forecast.io
   f.getForecast = function(locationURL){
+
     $.ajax({
       url: locationURL,
       dataType: 'jsonp'
@@ -371,6 +371,10 @@ var app = (function() {
       console.log(f._currentTemperature);
       f.updateDisplay();
     });
+
+    setTimeout(function () {
+      f.getForecast(locationURL);
+    }, 600000);
   };
 
   window.Forecast = f;
